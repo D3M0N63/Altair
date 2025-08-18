@@ -94,4 +94,45 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollFunction();
     };
 
+
+    // ===============================================
+// LÓGICA PARA RESALTAR EL ENLACE DEL MENÚ AL HACER SCROLL
+// ===============================================
+
+// 1. Seleccionar todas las secciones que tienen un ID
+const sections = document.querySelectorAll("section[id]");
+
+// 2. Seleccionar todos los enlaces del menú principal
+const navLinks = document.querySelectorAll(".main-nav-desktop a");
+
+// 3. Crear el observador
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Cuando una sección entra en la vista...
+
+            // Limpiamos la clase 'active' de todos los enlaces
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+            });
+
+            // Encontramos el enlace que corresponde a la sección visible
+            const id = entry.target.getAttribute("id");
+            const activeLink = document.querySelector(`.main-nav-desktop a[href="#${id}"]`);
+            
+            // Si encontramos el enlace, le añadimos la clase 'active'
+            if (activeLink) {
+                activeLink.classList.add("active");
+            }
+        }
+    });
+}, {
+    // Opciones del observador
+    threshold: 0.5 // La sección se considera "activa" cuando el 50% de ella es visible
+});
+
+// 4. Hacer que el observador vigile cada sección
+sections.forEach(section => {
+    observer.observe(section);
+});
 }); // Fin del addEventListener 'DOMContentLoaded'

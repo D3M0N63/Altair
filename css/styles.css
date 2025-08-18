@@ -671,3 +671,30 @@ header {
   z-index: 10;      /* Pone el header por encima de otro contenido */
   background-color: #f8f9fa; /* Asegura que el header tenga un fondo sólido */
 }
+
+
+
+/* ================================================= */
+/* == CORRECCIÓN DE OVERFLOW EN MÓVILES           == */
+/* ================================================= */
+
+@media (max-width: 768px) {
+    .projects-grid, .services-grid, .articles-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ========================================= */
+/* ESTILO PARA EL ENLACE DE NAVEGACIÓN ACTIVO */
+/* ========================================= */
+
+.main-nav-desktop a.active,
+.side-nav a.active {
+  color: #007bff; /* El color principal que hemos usado */
+  font-weight: bold;
+}
+
+body, html {
+  overflow-x: hidden;
+}
