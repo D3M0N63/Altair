@@ -249,6 +249,8 @@ footer nav ul {
 /* == 5. ESTILOS DE NAVEGACIÓN MÓVIL (TEMA BLANCO) == */
 /* ================================================= */
 
+
+
 #main-content {
   position: relative;
   z-index: 1;
@@ -319,6 +321,33 @@ footer nav ul {
 /* ================================================= */
 /* == 6. MEDIA QUERY PARA MÓVILES Y TABLETS        == */
 /* ================================================= */
+/* ================================================= */
+/* == CONTROL DE VISIBILIDAD DE NAVEGACIÓN        == */
+/* ================================================= */
+
+/* Por defecto (escritorio): se muestra el menú principal y se oculta el botón de hamburguesa */
+.main-nav-desktop {
+  display: block;
+}
+.menu-toggle {
+  display: none;
+}
+
+
+/* En pantallas de 992px o menos (tablets y móviles) */
+@media (max-width: 992px) {
+  /* Ocultamos el menú de escritorio */
+  .main-nav-desktop {
+    display: none;
+  }
+  
+  /* Y mostramos el botón de hamburguesa */
+  .menu-toggle {
+    display: inline-block;
+  }
+}
+
+
 
 @media (max-width: 992px) {
   /* Ocultamos menú de escritorio y mostramos el de hamburguesa */
