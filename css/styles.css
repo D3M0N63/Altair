@@ -279,11 +279,12 @@ section {
 }
 
 .project img {
-  width: 100%;              /* Ocupa todo el ancho de su contenedor */
-  aspect-ratio: 16 / 9;     /* Proporción panorámica (ancho / alto) */
-  object-fit: cover;        /* Evita que la imagen se deforme */
-  background-color: #eee;   /* Un color de fondo mientras carga la imagen */
+  width: 100%;
+  aspect-ratio: 4 / 3; /* <-- Proporción más cuadrada, ideal para variedad de imágenes */
+  object-fit: cover;
+  background-color: #eee;
 }
+
 .project, .article {
   background-color: white;
   border-radius: 5px;
