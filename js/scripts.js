@@ -136,3 +136,14 @@ sections.forEach(section => {
     observer.observe(section);
 });
 }); // Fin del addEventListener 'DOMContentLoaded'
+
+// ===============================================
+// == SUPABASE CONFIGURATION                  ==
+// ===============================================
+
+const SUPABASE_URL = 'https://sfiyutjuwxejldjgfehw.supabase.co'; // <-- Pega tu URL aquí
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmaXl1dGp1d3hlamxkamdmZWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MDcyMzcsImV4cCI6MjA3MTE4MzIzN30.jGKpVh2iRjKv-eScelLUOKu3bUEUhxxwSVes7y-ffGg'; // <-- Pega tu clave pública aquí
+
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ===============================================
