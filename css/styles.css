@@ -434,3 +434,21 @@ section {
     grid-template-columns: 1fr;
   }
 }
+
+/* ================================================= */
+/* == ESTILOS PARA PÁGINA DE DETALLE DE PROYECTO == */
+/* ================================================= */
+
+.project-detail-page #project-image {
+  max-width: 800px; /*<-- La imagen nunca será más ancha que 800px */
+  width: 100%;      /* Se asegura de que sea responsive en pantallas pequeñas */
+  margin: 2rem auto; /* Centra la imagen y le da espacio vertical */
+  display: block;
+  border-radius: 8px; /* Bordes redondeados para un look moderno */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Sombra sutil */
+}
+
+.project-detail-page #project-description p {
+    line-height: 1.8; /* Mejora la legibilidad de la descripción */
+    font-size: 1.1rem;
+}
