@@ -480,10 +480,12 @@ section {
 
 .feature-item img {
   width: 100%;
+  max-width: 450px; /* <-- LÍNEA CLAVE: Limita el ancho máximo */
+  margin: 0 auto;   /* <-- LÍNEA CLAVE: Centra la imagen */
+  display: block;   /* Asegura que el centrado con margen funcione */
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-
 .feature-item h3 {
   margin-top: 0;
   margin-bottom: 0.5rem;
