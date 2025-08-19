@@ -2,7 +2,7 @@
 // == 1. SUPABASE CONFIGURATION                 ==
 // ===============================================
 const SUPABASE_URL = 'https://sfiyutjuwxejldjgfehw.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJI-eScelLUOKu3bUEUhxxwSVes7y-ffGg'; // Tu clave pública
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmaXl1dGp1d3hlamxkamdmZWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MDcyMzcsImV4cCI6MjA3MTE4MzIzN30.jGKpVh2iRjKv-eScelLUOKu3bUEUhxxwSVes7y-ffGg'; // Tu clave pública
 
 // CORRECCIÓN CRÍTICA: La librería global se llama 'supabase'. Creamos nuestro cliente con un nombre nuevo, 'supabaseClient'.
 const { createClient } = supabase;
