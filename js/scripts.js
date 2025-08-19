@@ -135,6 +135,55 @@ const observer = new IntersectionObserver((entries) => {
 sections.forEach(section => {
     observer.observe(section);
 });
+ // ===============================================
+    // == LOAD PORTFOLIO PROJECTS FROM SUPABASE     ==
+    // ===============================================
+
+    async function loadProjects() {
+        const portfolioGrid = document.getElementById('portfolio-grid');
+        if (!portfolioGrid) return; // Exit if the grid isn't on the page
+
+        // Fetch data from the 'proyectos' table
+        const { data: proyectos, error } = await supabase
+            .from('proyectos')
+            .select('*');
+
+        if (error) {
+            console.error('Error fetching projects:', error);
+            portfolioGrid.innerHTML = '<p>No se pudieron cargar los proyectos.</p>';
+            return;
+        }
+
+        if (proyectos.length === 0) {
+            portfolioGrid.innerHTML = '<p>Actualmente no hay proyectos para mostrar.</p>';
+            return;
+        }
+
+        // Clear any existing content
+        portfolioGrid.innerHTML = ''; 
+
+        // Create HTML for each project and add it to the grid
+        proyectos.forEach(project => {
+            const projectCard = document.createElement('div');
+            projectCard.classList.add('project');
+            projectCard.setAttribute('data-aos', 'fade-up');
+
+            projectCard.innerHTML = `
+                <img src="${project.imagen_url}" alt="Imagen del proyecto ${project.titulo}">
+                <h3>${project.titulo}</h3>
+                <p>${project.descripcion}</p>
+                <a href="${project.proyecto_url}" target="_blank">Ver Detalles</a>
+            `;
+
+            portfolioGrid.appendChild(projectCard);
+        });
+    }
+
+    // Call the function to load projects when the page loads
+    loadProjects();
+
+
+
 }); // Fin del addEventListener 'DOMContentLoaded'
 
 // ===============================================
