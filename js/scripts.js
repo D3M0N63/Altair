@@ -2,9 +2,9 @@
 // == 1. SUPABASE CONFIGURATION                 ==
 // ===============================================
 const SUPABASE_URL = 'https://sfiyutjuwxejldjgfehw.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmaXl1dGp1d3hlamxkamdmZWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MDcyMzcsImV4cCI6MjA3MTE4MzIzN30.jGKpVh2iRjKv-eScelLUOKu3bUEUhxxwSVes7y-ffGg';
+const SUPABASE_KEY = 'eyJhbGciOiJI-eScelLUOKu3bUEUhxxwSVes7y-ffGg'; // Tu clave pública
 
-// CORRECCIÓN CRÍTICA: Se crea el cliente de Supabase. La variable global es "supabase", el cliente que creamos es "supabaseClient".
+// CORRECCIÓN CRÍTICA: La librería global se llama 'supabase'. Creamos nuestro cliente con un nombre nuevo, 'supabaseClient'.
 const { createClient } = supabase;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const portfolioGrid = document.getElementById('portfolio-grid');
         if (!portfolioGrid) return;
 
-        // CORRECCIÓN CRÍTICA: Usamos la variable "supabaseClient" que creamos.
+        // CORRECCIÓN CRÍTICA: Usamos la variable "supabaseClient" para llamar a la base de datos.
         const { data: proyectos, error } = await supabaseClient
             .from('proyectos')
             .select('*');
