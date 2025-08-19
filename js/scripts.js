@@ -3,16 +3,19 @@
 // ===============================================
 const SUPABASE_URL = 'https://sfiyutjuwxejldjgfehw.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmaXl1dGp1d3hlamxkamdmZWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MDcyMzcsImV4cCI6MjA3MTE4MzIzN30.jGKpVh2iRjKv-eScelLUOKu3bUEUhxxwSVes7y-ffGg';
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// CORRECCIÓN CRÍTICA: Se crea el cliente de Supabase. La variable global es "supabase", el cliente que creamos es "supabaseClient".
+const { createClient } = supabase;
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 
 // ===============================================
 // == 2. MAIN SCRIPT EXECUTION                  ==
 // ===============================================
-// Wait for the entire HTML document to be loaded before running any scripts
+// Espera a que todo el contenido del HTML esté cargado antes de ejecutar el script
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- Logic for Mobile Side Menu ---
+    // --- Lógica del Menú Lateral Móvil ---
     const menuToggle = document.getElementById('menu-toggle');
     const sideMenu = document.getElementById('side-menu');
     const mainContent = document.getElementById('main-content');
@@ -69,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // --- Logic for Back to Top Button ---
+    // --- Lógica del Botón de Volver Arriba ---
     const backToTopBtn = document.getElementById('back-to-top');
 
     function scrollFunction() {
@@ -87,19 +90,29 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
 
-    // --- Logic for Active Nav Link on Scroll ---
+    // --- Lógica para Resaltar el Enlace del Menú al Hacer Scroll ---
     const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll(".main-nav-desktop a");
+    const navLinksDesktop = document.querySelectorAll(".main-nav-desktop a");
+    const navLinksMobile = document.querySelectorAll(".side-nav a");
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                navLinks.forEach(link => link.classList.remove("active"));
                 const id = entry.target.getAttribute("id");
-                const activeLink = document.querySelector(`.main-nav-desktop a[href="#${id}"]`);
-                if (activeLink) {
-                    activeLink.classList.add("active");
-                }
+                
+                navLinksDesktop.forEach(link => {
+                    link.classList.remove("active");
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add("active");
+                    }
+                });
+
+                navLinksMobile.forEach(link => {
+                    link.classList.remove("active");
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add("active");
+                    }
+                });
             }
         });
     }, {
@@ -111,17 +124,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     
-    // --- Logic to Load Portfolio Projects from Supabase ---
+    // --- Lógica para Cargar Proyectos del Portafolio desde Supabase ---
     async function loadProjects() {
         const portfolioGrid = document.getElementById('portfolio-grid');
         if (!portfolioGrid) return;
 
-        const { data: proyectos, error } = await supabase
+        // CORRECCIÓN CRÍTICA: Usamos la variable "supabaseClient" que creamos.
+        const { data: proyectos, error } = await supabaseClient
             .from('proyectos')
             .select('*');
 
         if (error) {
-            console.error('Error fetching projects:', error);
+            console.error('Error al cargar proyectos:', error);
             portfolioGrid.innerHTML = '<p>No se pudieron cargar los proyectos.</p>';
             return;
         }
@@ -147,6 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Llamamos a la función para cargar los proyectos
     loadProjects();
 
-}); // --- End of DOMContentLoaded ---
+}); // --- FIN del DOMContentLoaded ---
