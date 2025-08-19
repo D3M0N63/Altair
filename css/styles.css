@@ -479,10 +479,11 @@ section {
 }
 
 .feature-item img {
-  width: 100%;
-  max-width: 450px; /* <-- Mantenemos el ancho máximo controlado */
-  margin: 0 auto;   /* Centra la captura de pantalla */
-  display: block;   
+  display: block;
+  width: auto;         /* El ancho se ajustará para mantener la proporción */
+  max-width: 100%;     /* Nunca será más ancha que su contenedor */
+  max-height: 70vh;    /* <-- LÍNEA CLAVE: Su altura no superará el 70% de la pantalla */
+  margin: 0 auto;      /* Centra la imagen */
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
