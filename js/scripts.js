@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <img loading="lazy" src="${project.imagen_url}" alt="Imagen del proyecto ${project.titulo}">
               <h3>${project.titulo}</h3>
               <p>${project.descripcion}</p>
-              <a href="${project.proyecto_url}" target="_blank">Ver Detalles</a>
+              <a href="proyecto-detalle.html?id=${project.id}">Ver Detalles</a>
 `;
             portfolioGrid.appendChild(projectCard);
         });
