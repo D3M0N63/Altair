@@ -455,4 +455,54 @@ section {
 
 
 
+/* ================================================= */
+/* == ESTILOS PARA LA SECCIÓN DE FUNCIONALIDADES  == */
+/* ================================================= */
 
+.features-grid {
+  display: grid;
+  gap: 2rem; /* Espacio entre cada función */
+  margin-top: 2rem;
+}
+
+.feature-item {
+  display: grid;
+  grid-template-columns: 1fr; /* Una columna en móviles */
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.feature-item:last-child {
+  border-bottom: none;
+}
+
+.feature-item img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.feature-item h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+/* En pantallas más grandes, usamos dos columnas */
+@media (min-width: 768px) {
+  .feature-item {
+    grid-template-columns: 1fr 2fr; /* Columna de imagen, columna de texto */
+  }
+
+  /* Alternamos la posición de la imagen para un diseño más dinámico */
+  .feature-item:nth-child(even) {
+    grid-template-columns: 2fr 1fr;
+  }
+  
+  .feature-item:nth-child(even) img {
+    grid-column: 2; /* Mueve la imagen a la segunda columna */
+    grid-row: 1;
+  }
+}
