@@ -273,9 +273,10 @@ section {
 
 .projects-grid, .services-grid, .articles-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 380px));
   gap: 20px;
   margin-top: 2rem;
+  justify-content: center; /* Centra las tarjetas cuando hay espacio extra */
 }
 
 .project img {
