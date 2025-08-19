@@ -12,12 +12,12 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   line-height: 1.6;
   color: #333;
   background-color: #fff;
-  overflow-x: hidden; /* Solución definitiva para el desbordamiento horizontal */
+  overflow-x: hidden;
 }
 
 .container {
@@ -27,18 +27,21 @@ body {
 }
 
 h1, h2, h3 {
+  font-family: 'Poppins', sans-serif;
   margin-top: 0;
   margin-bottom: 1rem;
-  color: #007bff; /* Un color primario */
+  color: #007bff;
+  font-weight: 700;
 }
 
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 /* ================================================= */
-/* == 2. ESTILOS DEL HEADER Y NAVEGACIÓN ESCRITORIO == */
+/* == 2. LAYOUT PRINCIPAL (HEADER, FOOTER)        == */
 /* ================================================= */
 
 header {
@@ -51,15 +54,68 @@ header {
 
 header .container {
   display: flex;
-  justify-content: space-between; /* Volvemos a space-between para alinear logo y menú a los extremos */
+  justify-content: space-between; /* Alineación original restaurada */
   align-items: center;
 }
 
 .logo img {
-  height: 60px; /* Ajusta la altura de tu logo aquí */
+  height: 60px;
   width: auto;
 }
 
+footer {
+  background-color: #333;
+  color: white;
+  padding: 2rem 0;
+}
+
+footer .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+footer a {
+  color: #f1f1f1;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icons {
+  display: flex; /* Estilo de íconos restaurado */
+  gap: 1.5rem;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #007bff;
+  transform: scale(1.2);
+}
+
+/* ================================================= */
+/* == 3. NAVEGACIÓN (DESKTOP, MÓVIL, BOTONES)     == */
+/* ================================================= */
+
+.main-nav-desktop {
+  display: block;
+}
 .main-nav-desktop ul {
   list-style: none;
   padding: 0;
@@ -67,32 +123,145 @@ header .container {
   display: flex;
   gap: 1.5rem;
 }
-
 .main-nav-desktop a {
   text-decoration: none;
   color: #333;
   font-weight: bold;
   transition: color 0.3s;
 }
-
 .main-nav-desktop a:hover {
   color: #007bff;
 }
 
+#main-content {
+  position: relative;
+  z-index: 1;
+  background-color: white;
+  transition: transform 0.5s ease;
+}
+#main-content.shifted {
+  transform: translateX(280px);
+}
+.side-nav {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 280px;
+  height: 100%;
+  background-color: #fff;
+  padding-top: 60px;
+  z-index: 2000;
+  overflow-x: hidden;
+  transition: left 0.5s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.side-nav.open {
+  left: 0;
+}
+.side-nav a {
+  padding: 10px 15px 10px 30px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #333;
+  display: block;
+  transition: color 0.3s, background-color 0.3s;
+}
+.side-nav a:hover {
+  color: #007bff;
+  background-color: #f8f9fa;
+}
+.side-nav .close-btn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  color: #555;
+}
+.side-nav .close-btn:hover {
+    color: #007bff;
+}
+
+.menu-toggle {
+  display: none;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+.hamburger-box {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+  position: absolute;
+  width: 32px;
+  height: 3px;
+  background-color: #333;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.hamburger-inner::before, .hamburger-inner::after {
+  content: "";
+  display: block;
+}
+.hamburger-inner::before {
+  top: -10px;
+}
+.hamburger-inner::after {
+  bottom: -10px;
+}
+.menu-toggle.is-active .hamburger-inner {
+  transform: rotate(225deg);
+}
+.menu-toggle.is-active .hamburger-inner::before {
+  top: 0;
+  transform: rotate(90deg);
+}
+.menu-toggle.is-active .hamburger-inner::after {
+  opacity: 0;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1999;
+  cursor: pointer;
+}
+.overlay.visible {
+  display: block;
+}
+
 /* ================================================= */
-/* == 3. ESTILOS GENERALES DE SECCIONES           == */
+/* == 4. ESTILOS DE SECCIONES Y COMPONENTES       == */
 /* ================================================= */
 
 section {
   padding: 4rem 0;
 }
 
+/* --- Estilos de la Sección Hero --- */
 .hero {
-  text-align: center;
+  text-align: center; /* <-- ESTA LÍNEA CENTRA TODO */
 }
 .hero-content {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 800px; /* Limita el ancho del texto en pantallas grandes */
+  margin: 0 auto;   /* Centra el bloque de contenido */
 }
 .hero h1 {
   font-size: 2.5rem;
@@ -137,6 +306,11 @@ section {
 .project p, .article p {
   padding-bottom: 1rem;
 }
+.article .meta {
+  font-size: 0.9rem;
+  color: #6c757d;
+  padding-bottom: 0.5rem;
+}
 
 .service {
   padding: 20px;
@@ -145,64 +319,9 @@ section {
   text-align: center;
 }
 
-/* ================================================= */
-/* == 3.5 ESTILOS DEL PIE DE PÁGINA (FOOTER)      == */
-/* ================================================= */
-
-footer {
-  background-color: #333; /* Color de fondo oscuro */
-  color: white;           /* Color del texto */
-  padding: 2rem 0;
-  text-align: center;
-}
-
-/* Estilos para los enlaces dentro del footer (ej: Política de Privacidad) */
-footer a {
-  color: #f1f1f1; /* Un color blanco más suave para los enlaces */
-  text-decoration: none;
-  transition: text-decoration 0.3s;
-}
-
-footer a:hover {
-  text-decoration: underline; /* Subrayado al pasar el cursor */
-}
-
-footer nav ul {
-  list-style: none; /* Quita los puntos de la lista */
-  padding: 0;       /* Quita el espaciado por defecto */
-  margin: 0;        /* Opcional: asegura que no haya margen */
-  display: flex;    /* Alinea los enlaces horizontalmente */
-  gap: 1rem;        /* Añade un espacio entre los enlaces */
-}
-
-/* ================================================= */
-/* == 4. ESTILOS DE COMPONENTES (BOTONES, FORM)   == */
-/* ================================================= */
-
-.button {
-  display: inline-block;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-  border: none;
-}
-.button.primary {
-  background-color: #007bff;
-  color: white;
-}
-.button.primary:hover {
-  background-color: #0056b3;
-}
-
 .contact-form {
   max-width: 600px;
   margin: 0 auto;
-  padding: 2rem;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 .form-group {
   margin-bottom: 1.5rem;
@@ -219,20 +338,55 @@ footer nav ul {
   border-radius: 5px;
 }
 
-.back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+.button.primary {
   background-color: #007bff;
   color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+}
+.button.primary:hover {
+  background-color: #0056b3;
+}
+.button.secondary {
+  background-color: #6c757d;
+  color: white;
+}
+.button.secondary:hover {
+  background-color: #5a6268;
+}
+
+.cta-center {
   text-align: center;
-  line-height: 50px;
+  margin-top: 2rem;
+}
+
+/* ================================================= */
+/* == 5. BOTÓN VOLVER ARRIBA Y CLASES DE UTILIDAD == */
+/* ================================================= */
+
+.back-to-top {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  z-index: 999 !important;
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+  background-color: #007bff;
+  color: white;
   font-size: 24px;
   text-decoration: none;
-  z-index: 999;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s, visibility 0.4s;
@@ -245,145 +399,30 @@ footer nav ul {
   visibility: visible;
 }
 
-/* ================================================= */
-/* == 5. ESTILOS DE NAVEGACIÓN MÓVIL (TEMA BLANCO) == */
-/* ================================================= */
-
-
-
-#main-content {
-  position: relative;
-  z-index: 1;
-  background-color: white; 
-  transition: transform 0.5s ease;
-}
-#main-content.shifted {
-  transform: translateX(280px);
-}
-
-.side-nav {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: -280px; 
-  width: 280px;
-  height: 100%;
-  background-color: #fff; /* <-- FONDO BLANCO */
-  padding-top: 60px;
-  z-index: 2000;
-  overflow-x: hidden;
-  transition: left 0.5s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Sombra para que destaque */
-}
-.side-nav.open {
-  left: 0;
-}
-.side-nav a {
-  padding: 10px 15px 10px 30px;
-  text-decoration: none;
-  font-size: 1.2rem;
-  color: #333; /* <-- TEXTO OSCURO */
-  display: block;
-  transition: color 0.3s, background-color 0.3s;
-}
-
-.side-nav a:hover {
-  color: #007bff; /* <-- TEXTO AZUL AL PASAR EL CURSOR */
-  background-color: #f8f9fa; /* Fondo sutil al pasar el cursor */
-}
-
-.side-nav .close-btn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  color: #555; /* <-- BOTÓN DE CERRAR OSCURO */
-}
-.side-nav .close-btn:hover {
-    color: #007bff;
-}
-
-/* El overlay no necesita cambios */
-.overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 1999;
-  cursor: pointer;
-}
-.overlay.visible {
-  display: block;
-}
-/* ================================================= */
-/* == 6. MEDIA QUERY PARA MÓVILES Y TABLETS        == */
-/* ================================================= */
-/* ================================================= */
-/* == CONTROL DE VISIBILIDAD DE NAVEGACIÓN        == */
-/* ================================================= */
-
-/* Por defecto (escritorio): se muestra el menú principal y se oculta el botón de hamburguesa */
-.main-nav-desktop {
-  display: block;
-}
-.menu-toggle {
-  display: none;
-}
-
-
-/* En pantallas de 992px o menos (tablets y móviles) */
-@media (max-width: 992px) {
-  /* Ocultamos el menú de escritorio */
-  .main-nav-desktop {
-    display: none;
-  }
-  
-  /* Y mostramos el botón de hamburguesa */
-  .menu-toggle {
-    display: inline-block;
-  }
-}
-
-
-
-@media (max-width: 992px) {
-  /* Ocultamos menú de escritorio y mostramos el de hamburguesa */
-  .main-nav-desktop {
-    display: none;
-  }
-  .menu-toggle {
-    display: inline-block;
-  }
-  
-  .hero h1 {
-    font-size: 2rem;
-  }
-  
-  /* Forzamos los grids a una sola columna */
-  .projects-grid, .services-grid, .articles-grid {
-    grid-template-columns: 1fr;
-  }
-
-  footer .container {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
-/* ================================================= */
-/* == 7. CLASES DE UTILIDAD (EJ: NAV ACTIVA)      == */
-/* ================================================= */
-
-
 .main-nav-desktop a.active,
 .side-nav a.active {
-  color: #007bff; /* El color principal que hemos usado */
+  color: #007bff;
   font-weight: bold;
 }
 
-body, html {
-  overflow-x: hidden;
+/* ================================================= */
+/* == 6. MEDIA QUERIES PARA DISEÑO RESPONSIVE     == */
+/* ================================================= */
+
+@media (max-width: 992px) {
+  /* --- Visibilidad de la Navegación --- */
+  .main-nav-desktop {
+    display: none;
+  }
+  .menu-toggle {
+    display: inline-block;
+  }
+
+  /* --- Ajustes de Texto y Layout --- */
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .projects-grid, .services-grid, .articles-grid {
+    grid-template-columns: 1fr;
+  }
 }

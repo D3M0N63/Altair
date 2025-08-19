@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Negocio de Programación y Desarrollo Web</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Altair - Diseño Web y Desarrollo de Software en Paraguay</title>
+    <meta name="description" content="En Altair, creamos páginas web de alto rendimiento y software a medida para empresas. Potencia tu presencia digital con nuestro equipo de expertos.">
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -33,7 +41,7 @@
 
         <header>
             <div class="container">
-                <div class="logo"><img src="imagenes/logo.png" alt="Altair" title="Altair"></div>
+                <div class="logo"><img src="imagenes/logo.png" alt="Altair Logo" title="Altair"></div>
                 <nav class="main-nav-desktop">
                     <ul>
                         <li><a href="#portafolio">Portafolio</a></li>
@@ -54,9 +62,9 @@
         <section id="hero" class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h1>Desarrollamos la Web y el Software que Impulsa tu Éxito</h1>
-                    <p>Somos un equipo de expertos en programación y diseño web listos para hacer realidad tus ideas.</p>
-                    <a href="#contacto" class="button primary">Solicita una Cotización</a>
+                    <h1 data-aos="fade-up">Desarrollamos la Web y el Software que Impulsa tu Éxito</h1>
+                    <p data-aos="fade-up" data-aos-delay="100">Somos un equipo de expertos en programación y diseño web listos para hacer realidad tus ideas.</p>
+                    <a href="#contacto" class="button primary" data-aos="fade-up" data-aos-delay="200">Solicita una Cotización</a>
                 </div>
             </div>
         </section>
@@ -72,8 +80,8 @@
                         <a href="#">Ver Detalles</a>
                     </div>
                 </div>
-                <div class="cta-center">
-                    <a href="#">Ver Todos los Proyectos</a>
+                <div class="cta-center" data-aos="fade-up">
+                    <a href="#" class="button secondary">Ver Todos los Proyectos</a>
                 </div>
             </div>
         </section>
@@ -121,8 +129,8 @@
                         <a href="#">Leer Más</a>
                     </article>
                 </div>
-                <div class="cta-center">
-                    <a href="/blog">Ver Todos los Artículos</a>
+                <div class="cta-center" data-aos="fade-up">
+                    <a href="/blog" class="button secondary">Ver Todos los Artículos</a>
                 </div>
             </div>
         </section>
@@ -152,7 +160,12 @@
 
         <footer>
             <div class="container">
-                <p>&copy; 2025 Tu Negocio de Programación y Desarrollo Web. Todos los derechos reservados.</p>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/tu-usuario/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/tu-usuario" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/tu-usuario" target="_blank" aria-label="X (antes Twitter)"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p>&copy; 2025 Altair. Todos los derechos reservados.</p>
                 <nav>
                     <ul>
                         <li><a href="#">Política de Privacidad</a></li>
@@ -161,9 +174,8 @@
                 </nav>
             </div>
         </footer>
-
  
-</div> <a href="#hero" id="back-to-top" ... >&uarr;</a>
+    </div> <a href="#hero" id="back-to-top" class="back-to-top" title="Volver Arriba">&uarr;</a>
 
     <script src="js/scripts.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
