@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir Nuevo Artículo</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body { background-color: #f4f7f6; }
+        .admin-form-container { max-width: 800px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="admin-form-container">
+        <h1>Añadir Nuevo Artículo</h1>
+        <form id="create-article-form">
+            <div class="form-group">
+                <label for="titulo">Título del Artículo</label>
+                <input type="text" id="titulo" required>
+            </div>
+            <div class="form-group">
+                <label for="resumen">Resumen (para la vista previa)</label>
+                <textarea id="resumen" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="contenido">Contenido Completo del Artículo</label>
+                <textarea id="contenido" rows="10" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="imagen">Imagen de Portada</label>
+                <input type="file" id="imagen" accept="image/*" required>
+            </div>
+            <button type="submit" class="button primary">Guardar Artículo</button>
+            <a href="/admin/index.html" style="margin-left: 1rem;">Cancelar</a>
+        </form>
+        <p id="feedback-message" style="margin-top: 1rem;"></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/crear-articulo.js"></script>
+</body>
+</html>
