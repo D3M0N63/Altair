@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir Nuevo Proyecto</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body { background-color: #f4f7f6; }
+        .admin-form-container { max-width: 800px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="admin-form-container">
+        <h1>Añadir Nuevo Proyecto</h1>
+        <form id="create-project-form">
+            <div class="form-group">
+                <label for="titulo">Título del Proyecto</label>
+                <input type="text" id="titulo" required>
+            </div>
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="proyecto_url">URL del Proyecto (Enlace externo)</label>
+                <input type="url" id="proyecto_url">
+            </div>
+            <div class="form-group">
+                <label for="imagen">Imagen Principal</label>
+                <input type="file" id="imagen" accept="image/*" required>
+            </div>
+            <button type="submit" class="button primary">Guardar Proyecto</button>
+            <a href="/admin/index.html" style="margin-left: 1rem;">Cancelar</a>
+        </form>
+        <p id="feedback-message" style="margin-top: 1rem;"></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/crear-proyecto.js"></script>
+</body>
+</html>
