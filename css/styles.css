@@ -552,3 +552,19 @@ section {
   color: #6c757d; /* Un color gris para el cargo */
   margin-top: 0;
 }
+
+
+
+/* ================================================= */
+/* == SOLUCIÓN AGRESIVA PARA ELIMINAR DESPLAZAMIENTO == */
+/* ================================================= */
+
+#main-content,
+.hero,
+.portafolio,
+.servicios,
+.sobre-nosotros,
+.blog,
+.contacto {
+    overflow-x: hidden;
+}
