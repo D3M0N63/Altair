@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargando artículo...</title> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="main-content">
+        <header>
+            <div class="container">
+                <div class="logo"><a href="index.html"><img src="imagenes/logo.png" alt="Altair Logo" title="Altair"></a></div>
+                <a href="blog.html" class="button secondary">Volver al Blog</a>
+            </div>
+        </header>
+
+        <main class="article-detail-page" style="padding: 4rem 0;">
+            <div class="container" style="max-width: 800px;">
+                <h1 id="article-title"></h1>
+                <p id="article-meta" class="meta"></p>
+                <img src="" alt="" id="article-image" style="display: none; width: 100%; height: auto; margin: 2rem 0; border-radius: 5px;">
+                <div id="article-content" class="article-content"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/articulo-detalle.js"></script> </body>
+</html>
