@@ -8,7 +8,6 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 async function checkAuth() {
     const { data: { user } } = await supabaseClient.auth.getUser();
     if (!user) {
-        // Si no hay usuario, redirigir a la página de login
         window.location.href = '/login.html';
     }
     return user;
@@ -20,43 +19,108 @@ async function logout() {
     if (error) {
         console.error('Error al cerrar sesión', error);
     } else {
-        // Redirigir a la página de login después de cerrar sesión
         window.location.href = '/login.html';
     }
 }
 
-// --- FUNCIÓN PARA CARGAR Y MOSTRAR PROYECTOS ---
+// --- FUNCIONES PARA PROYECTOS ---
 async function displayProjects() {
-    const { data: proyectos, error } = await supabaseClient.from('proyectos').select('*').order('created_at', { ascending: false });
     const list = document.getElementById('proyectos-list');
+    
+    // CORREGIDO: Se elimina la parte mal formada del order
+    const { data: proyectos, error } = await supabaseClient
+        .from('proyectos')
+        .select('*')
+        .order('created_at', { ascending: false });
+
     if (error || !proyectos) {
         list.innerHTML = '<li>Error al cargar proyectos.</li>';
         return;
     }
-    list.innerHTML = proyectos.map(p => `<li>${p.titulo} <div><a href="#">Editar</a> | <a href="#">Borrar</a></div></li>`).join('');
+    list.innerHTML = proyectos.map(p => `
+        <li>
+            ${p.titulo} 
+            <div>
+                <a href="editar-proyecto.html?id=${p.id}">Editar</a> | 
+                <a href="#" class="delete-project-btn" data-id="${p.id}">Borrar</a>
+            </div>
+        </li>
+    `).join('');
 }
 
-// --- FUNCIÓN PARA CARGAR Y MOSTRAR ARTÍCULOS ---
+async function deleteProject(projectId) {
+    const { error } = await supabaseClient.from('proyectos').delete().eq('id', projectId);
+    if (error) {
+        console.error('Error al eliminar el proyecto:', error);
+        alert('No se pudo eliminar el proyecto.');
+    } else {
+        alert('Proyecto eliminado con éxito.');
+        displayProjects(); // Recargamos la lista para mostrar el cambio
+    }
+}
+
+// --- FUNCIONES PARA ARTÍCULOS ---
 async function displayArticles() {
-    const { data: articulos, error } = await supabaseClient.from('articulos').select('*').order('created_at', { ascending: false });
     const list = document.getElementById('articulos-list');
+
+    // CORREGIDO: Se elimina la parte mal formada del order
+    const { data: articulos, error } = await supabaseClient
+        .from('articulos')
+        .select('*')
+        .order('created_at', { ascending: false });
+
     if (error || !articulos) {
         list.innerHTML = '<li>Error al cargar artículos.</li>';
         return;
     }
-    list.innerHTML = articulos.map(a => `<li>${a.titulo} <div><a href="#">Editar</a> | <a href="#">Borrar</a></div></li>`).join('');
+    list.innerHTML = articulos.map(a => `
+        <li>
+            ${a.titulo} 
+            <div>
+                <a href="editar-articulo.html?id=${a.id}">Editar</a> | 
+                <a href="#" class="delete-article-btn" data-id="${a.id}">Borrar</a>
+            </div>
+        </li>
+    `).join('');
 }
 
+async function deleteArticle(articleId) {
+    const { error } = await supabaseClient.from('articulos').delete().eq('id', articleId);
+    if (error) {
+        console.error('Error al eliminar el artículo:', error);
+        alert('No se pudo eliminar el artículo.');
+    } else {
+        alert('Artículo eliminado con éxito.');
+        displayArticles(); // Recargamos la lista para mostrar el cambio
+    }
+}
 
 // --- CÓDIGO PRINCIPAL QUE SE EJECUTA AL CARGAR LA PÁGINA ---
 document.addEventListener('DOMContentLoaded', async () => {
     const user = await checkAuth();
     if (user) {
-        // Si el usuario está autenticado, ejecutar todo
         document.getElementById('user-email').textContent = user.email;
         document.getElementById('logout-button').addEventListener('click', logout);
         
         displayProjects();
         displayArticles();
+
+        document.body.addEventListener('click', async (e) => {
+            if (e.target && e.target.classList.contains('delete-project-btn')) {
+                e.preventDefault();
+                const idToDelete = e.target.dataset.id;
+                if (confirm('¿Estás seguro de que quieres eliminar este proyecto?')) {
+                    await deleteProject(idToDelete);
+                }
+            }
+
+            if (e.target && e.target.classList.contains('delete-article-btn')) {
+                e.preventDefault();
+                const idToDelete = e.target.dataset.id;
+                if (confirm('¿Estás seguro de que quieres eliminar este artículo?')) {
+                    await deleteArticle(idToDelete);
+                }
+            }
+        });
     }
 });
