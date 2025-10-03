@@ -2,9 +2,8 @@
 // == 1. SUPABASE CONFIGURATION                 ==
 // ===============================================
 const SUPABASE_URL = 'https://sfiyutjuwxejldjgfehw.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmaXl1dGp1d3hlamxkamdmZWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MDcyMzcsImV4cCI6MjA3MTE4MzIzN30.jGKpVh2iRjKv-eScelLUOKu3bUEUhxxwSVes7y-ffGg'; // Tu clave pública
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmaXl1dGp1d3hlamxkamdmZWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MDcyMzcsImV4cCI6MjA3MTE4MzIzN30.jGKpVh2iRjKv-eScelLUOKu3bUEUhxxwSVes7y-ffGg';
 
-// CORRECCIÓN CRÍTICA: La librería global se llama 'supabase'. Creamos nuestro cliente con un nombre nuevo, 'supabaseClient'.
 const { createClient } = supabase;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -12,7 +11,6 @@ const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 // ===============================================
 // == 2. MAIN SCRIPT EXECUTION                  ==
 // ===============================================
-// Espera a que todo el contenido del HTML esté cargado antes de ejecutar el script
 document.addEventListener('DOMContentLoaded', function() {
 
     // --- Lógica del Menú Lateral Móvil ---
@@ -124,12 +122,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     
-    // --- Lógica para Cargar Proyectos del Portafolio desde Supabase ---
-    async function loadProjects() {
+    // --- Lógica para Cargar Proyectos (SOLO PARA LA PÁGINA DE INICIO) ---
+    async function loadHomepageProjects() {
         const portfolioGrid = document.getElementById('portfolio-grid');
-        if (!portfolioGrid) return;
+        
+        // --- ESTA ES LA CORRECCIÓN ---
+        // Si el elemento 'portfolio-grid' no existe en la página actual, no hagas nada.
+        if (!portfolioGrid) {
+            return;
+        }
 
-        // CORRECCIÓN CRÍTICA: Usamos la variable "supabaseClient" para llamar a la base de datos.
         const { data: proyectos, error } = await supabaseClient
             .from('proyectos')
             .select('*');
@@ -155,13 +157,12 @@ document.addEventListener('DOMContentLoaded', function() {
               <img loading="lazy" src="${project.imagen_url}" alt="Imagen del proyecto ${project.titulo}">
               <h3>${project.titulo}</h3>
               <p>${project.descripcion}</p>
-              <a href="proyecto-detalle.html?id=${project.id}">Ver Detalles</a>
-`;
+              <a href="proyecto-detalle.html?id=${project.id}">Ver Detalles</a>`;
             portfolioGrid.appendChild(projectCard);
         });
     }
 
-    // Llamamos a la función para cargar los proyectos
-    loadProjects();
+    // Llamamos a la función para cargar los proyectos de la página de inicio
+    loadHomepageProjects();
 
 }); // --- FIN del DOMContentLoaded ---
