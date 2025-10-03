@@ -568,3 +568,74 @@ section {
 .contacto {
     overflow-x: hidden;
 }
+
+/* ================================================= */
+/* == 7. ESTILOS PARA PÁGINA DE DETALLE (MEJORADO) == */
+/* ================================================= */
+
+.project-detail-page {
+    background-color: #f8f9fa; /* Un fondo suave para toda la página */
+    padding-bottom: 4rem;      /* Espacio extra al final */
+}
+
+.project-header {
+    text-align: center;
+    padding: 2rem 0;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 2rem;
+}
+
+.project-header h1 {
+    font-size: 2.8rem;
+    color: #333;
+}
+
+#project-image {
+  max-width: 800px; 
+  width: 100%;     
+  margin: 0 auto 2rem auto; /* Centrada y con espacio inferior */
+  display: block;
+  border-radius: 8px; 
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Sombra más pronunciada */
+}
+
+.project-content-card {
+    background-color: #fff;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin: 0 auto 2rem auto;
+    max-width: 800px;
+}
+
+.project-content-card h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#project-summary-content p {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.project-cta {
+    text-align: center;
+}
+
+.project-cta .button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+}
+
+.project-cta .button:hover {
+    transform: translateY(-2px);
+}
+
+/* Para añadir el ícono al botón */
+.project-cta .button i {
+    margin-left: 8px;
+}
