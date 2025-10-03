@@ -42,10 +42,10 @@ async function loadProjectDetails() {
         projectLink.style.display = 'inline-block';
     }
 
-    // --- Rellenar la sección de resumen/funcionalidades ---
-    const featuresGrid = document.getElementById('project-features-grid');
+    // --- Rellenar la sección de resumen ---
+    const summaryContainer = document.getElementById('project-summary-content');
     if (project.funcionalidades && typeof project.funcionalidades === 'string') {
         // Se asegura de que el contenedor esté vacío y luego añade el resumen
-        featuresGrid.innerHTML = `<p>${project.funcionalidades.replace(/\n/g, '<br>')}</p>`;
+        summaryContainer.innerHTML = `<p>${project.funcionalidades.replace(/\n/g, '<br>')}</p>`;
     }
 }
