@@ -7,8 +7,6 @@
     <style>
         body { background-color: #f4f7f6; }
         .admin-form-container { max-width: 800px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; }
-        .functionality-item { background-color: #f9f9f9; border: 1px solid #ddd; padding: 1rem; margin-top: 1rem; border-radius: 5px; }
-        .functionality-item h3 { margin-top: 0; }
     </style>
       <link rel="apple-touch-icon" sizes="180x180" href="../favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon_io/favicon-32x32.png">
@@ -23,8 +21,12 @@
                 <input type="text" id="titulo" required>
             </div>
             <div class="form-group">
-                <label for="descripcion">Descripción</label>
-                <textarea id="descripcion" rows="4" required></textarea>
+                <label for="descripcion">Descripción (para la tarjeta de vista previa)</label>
+                <textarea id="descripcion" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="resumen">Resumen del Proyecto (para la página de detalle)</label>
+                <textarea id="resumen" rows="8" required></textarea>
             </div>
             <div class="form-group">
                 <label for="proyecto_url">URL del Proyecto (Enlace externo)</label>
@@ -34,16 +36,6 @@
                 <label for="imagen">Imagen Principal</label>
                 <input type="file" id="imagen" accept="image/*" required>
             </div>
-
-            <hr style="margin: 2rem 0;">
-
-            <h2>Funcionalidades Destacadas</h2>
-            <div id="functionalities-container">
-                </div>
-            <button type="button" id="add-functionality-btn" class="button secondary" style="margin-top: 1rem;">Añadir Funcionalidad</button>
-            
-            <hr style="margin: 2rem 0;">
-
             <button type="submit" class="button primary">Guardar Proyecto</button>
             <a href="/admin/index.html" style="margin-left: 1rem;">Cancelar</a>
         </form>
