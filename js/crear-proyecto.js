@@ -23,14 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const titulo = document.getElementById('titulo').value;
         const descripcion = document.getElementById('descripcion').value;
+        const resumen = document.getElementById('resumen').value; // Obtenemos el resumen
         const proyecto_url = document.getElementById('proyecto_url').value;
         const imageFile = document.getElementById('imagen').files[0];
 
         feedbackMessage.textContent = 'Guardando, por favor espera...';
         
-        // 1. Subir la imagen a Supabase Storage
+        // 1. Subir la imagen
         const fileName = `${Date.now()}-${imageFile.name}`;
-        const { data: uploadData, error: uploadError } = await supabaseClient
+        const { error: uploadError } = await supabaseClient
             .storage
             .from('imagenes-portafolio')
             .upload(fileName, imageFile);
@@ -41,19 +42,24 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // 2. Obtener la URL pública de la imagen subida
+        // 2. Obtener la URL pública de la imagen
         const { data: urlData } = supabaseClient
             .storage
             .from('imagenes-portafolio')
             .getPublicUrl(fileName);
-
         const imagen_url = urlData.publicUrl;
 
-        // 3. Insertar los datos en la tabla 'proyectos'
-        const { data: insertData, error: insertError } = await supabaseClient
+        // 3. Insertar los datos (mapeando 'resumen' a 'funcionalidades')
+        const { error: insertError } = await supabaseClient
             .from('proyectos')
             .insert([
-                { titulo, descripcion, proyecto_url, imagen_url }
+                { 
+                    titulo, 
+                    descripcion, 
+                    proyecto_url, 
+                    imagen_url,
+                    funcionalidades: resumen // Aquí está la magia
+                }
             ]);
 
         if (insertError) {

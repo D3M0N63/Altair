@@ -8,6 +8,7 @@ const form = document.getElementById('edit-project-form');
 const feedbackMessage = document.getElementById('feedback-message');
 const tituloInput = document.getElementById('titulo');
 const descripcionInput = document.getElementById('descripcion');
+const resumenInput = document.getElementById('resumen');
 const proyectoUrlInput = document.getElementById('proyecto_url');
 let currentProjectId = null;
 let currentImageUrl = null;
@@ -39,6 +40,7 @@ async function loadProjectData() {
     } else {
         tituloInput.value = project.titulo;
         descripcionInput.value = project.descripcion;
+        resumenInput.value = project.funcionalidades; // Carga el resumen desde la columna 'funcionalidades'
         proyectoUrlInput.value = project.proyecto_url;
         currentImageUrl = project.imagen_url;
     }
@@ -70,7 +72,8 @@ form.addEventListener('submit', async (e) => {
         titulo: tituloInput.value,
         descripcion: descripcionInput.value,
         proyecto_url: proyectoUrlInput.value,
-        imagen_url: newImageUrl
+        imagen_url: newImageUrl,
+        funcionalidades: resumenInput.value // Guarda el resumen en la columna 'funcionalidades'
     };
 
     // Actualizar el registro en la base de datos

@@ -28,34 +28,24 @@ async function loadProjectDetails() {
         return;
     }
 
-    // --- Rellenar datos principales (sin cambios) ---
+    // --- Rellenar datos principales ---
     document.title = `${project.titulo} | Detalles del Proyecto`;
     document.getElementById('project-title').innerText = project.titulo;
     const projectImage = document.getElementById('project-image');
     projectImage.src = project.imagen_url;
     projectImage.alt = `Imagen del proyecto ${project.titulo}`;
     projectImage.style.display = 'block';
-    document.getElementById('project-description').innerHTML = `<p>${project.descripcion.replace(/\n/g, '<br>')}</p>`;
+    
     const projectLink = document.getElementById('project-link');
     if (project.proyecto_url) {
         projectLink.href = project.proyecto_url;
         projectLink.style.display = 'inline-block';
     }
 
-    // --- NUEVO: Rellenar la sección de funcionalidades ---
+    // --- Rellenar la sección de resumen/funcionalidades ---
     const featuresGrid = document.getElementById('project-features-grid');
-    if (project.funcionalidades && Array.isArray(project.funcionalidades)) {
-        project.funcionalidades.forEach(feature => {
-            const featureElement = document.createElement('div');
-            featureElement.classList.add('feature-item');
-            featureElement.innerHTML = `
-                <img src="${feature.imagen_url}" alt="Imagen de la función ${feature.titulo}" loading="lazy">
-                <div class="feature-text">
-                    <h3>${feature.titulo}</h3>
-                    <p>${feature.descripcion}</p>
-                </div>
-            `;
-            featuresGrid.appendChild(featureElement);
-        });
+    if (project.funcionalidades && typeof project.funcionalidades === 'string') {
+        // Se asegura de que el contenedor esté vacío y luego añade el resumen
+        featuresGrid.innerHTML = `<p>${project.funcionalidades.replace(/\n/g, '<br>')}</p>`;
     }
 }
