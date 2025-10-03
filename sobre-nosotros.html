@@ -9,19 +9,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="css/styles.css">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
-    
-
-
+</head>
 <body>
+
+    <nav id="side-menu" class="side-nav">
+        <a href="#" class="close-btn">&times;</a>
+        <a href="index.html#hero">Inicio</a>
+        <a href="index.html#portafolio">Portafolio</a>
+        <a href="index.html#servicios">Servicios</a>
+        <a href="index.html#nosotros">Sobre Nosotros</a>
+        <a href="index.html#blog">Blog</a>
+        <a href="index.html#contacto">Contacto</a>
+    </nav>
+    <div id="overlay" class="overlay"></div>
+
     <div id="main-content">
         <header>
             <div class="container">
                 <div class="logo"><a href="index.html"><img src="imagenes/altair_logo3.png" alt="Altair Logo" title="Altair"></a></div>
-                <a href="index.html" class="button secondary">Volver al Inicio</a>
+                <nav class="main-nav-desktop">
+                    <ul>
+                        <li><a href="index.html#portafolio">Portafolio</a></li>
+                        <li><a href="index.html#servicios">Servicios</a></li>
+                        <li><a href="index.html#nosotros">Sobre Nosotros</a></li>
+                        <li><a href="index.html#blog">Blog</a></li>
+                        <li><a href="index.html#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+                <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú">
+                    <span class="hamburger-box">
+                        <span class="hamburger-inner"></span>
+                    </span>
+                </button>
             </div>
         </header>
 
@@ -33,13 +57,8 @@
                 <div class="about-details">
                     <div class="mission-vision">
                         <h2>Misión y Visión</h2>
-                        <p><strong>Nuestra Misión:</strong>Ayudar a pequeños negocios y emprendedores en Paraguay a simplificar y optimizar la gestión
-de caja e inventario, proporcionando soluciones de software accesibles que les permitan tomar
-el control de sus operaciones y crecer con seguridad.
-</p>
-                        <p><strong>Nuestra Visión:</strong> Ser el aliado tecnológico de referencia para la digitalización de pequeñas empresas en Paraguay,
-reconocidos por la simplicidad de nuestras soluciones y la confianza que brindamos a nuestros
-clientes.</p>
+                        <p><strong>Nuestra Misión:</strong>Ayudar a pequeños negocios y emprendedores en Paraguay a simplificar y optimizar la gestión de caja e inventario, proporcionando soluciones de software accesibles que les permitan tomar el control de sus operaciones y crecer con seguridad.</p>
+                        <p><strong>Nuestra Visión:</strong> Ser el aliado tecnológico de referencia para la digitalización de pequeñas empresas en Paraguay, reconocidos por la simplicidad de nuestras soluciones y la confianza que brindamos a nuestros clientes.</p>
                     </div>
 
                     <div class="team-section">
@@ -50,28 +69,20 @@ clientes.</p>
                                 <h3>[Tu Nombre Completo]</h3>
                                 <p class="role">Fundador & Desarrollador Principal</p>
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
 
         <footer>
-             <div class="container">
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/tu-usuario/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/tu-usuario" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://x.com/tu-usuario" target="_blank" aria-label="X (antes Twitter)"><i class="fab fa-twitter"></i></a>
-                </div>
-                <p>&copy; 2025 Altair. Todos los derechos reservados.</p>
-                <nav>
-                    <ul>
-                        <li><a href="#">Política de Privacidad</a></li>
-                        <li><a href="#">Términos y Condiciones</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </footer>
+            </footer>
     </div>
+    
+    <script src="js/scripts.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 </body>
 </html>
