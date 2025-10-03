@@ -7,10 +7,12 @@
     <style>
         body { background-color: #f4f7f6; }
         .admin-form-container { max-width: 800px; margin: 2rem auto; padding: 2rem; background: white; border-radius: 8px; }
+        .functionality-item { background-color: #f9f9f9; border: 1px solid #ddd; padding: 1rem; margin-top: 1rem; border-radius: 5px; }
+        .functionality-item h3 { margin-top: 0; }
     </style>
-      <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="../favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon_io/favicon-16x16.png">
 </head>
 <body>
     <div class="admin-form-container">
@@ -28,11 +30,21 @@
                 <label for="proyecto_url">URL del Proyecto (Enlace externo)</label>
                 <input type="url" id="proyecto_url">
             </div>
-            <p>Para cambiar la imagen, simplemente sube una nueva. Si no subes una nueva, se conservará la actual.</p>
+            <p>Para cambiar la imagen principal, sube una nueva. Si no, se conservará la actual.</p>
             <div class="form-group">
                 <label for="imagen">Cambiar Imagen Principal</label>
                 <input type="file" id="imagen" accept="image/*">
             </div>
+
+            <hr style="margin: 2rem 0;">
+
+            <h2>Funcionalidades Destacadas</h2>
+            <div id="functionalities-container">
+                </div>
+            <button type="button" id="add-functionality-btn" class="button secondary" style="margin-top: 1rem;">Añadir Funcionalidad</button>
+
+            <hr style="margin: 2rem 0;">
+
             <button type="submit" class="button primary">Actualizar Proyecto</button>
             <a href="/admin/index.html" style="margin-left: 1rem;">Cancelar</a>
         </form>
