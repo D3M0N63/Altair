@@ -1,9 +1,3 @@
-// Configuración de Supabase
-const SUPABASE_URL = 'https://sfiyutjuwxejldjgfehw.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmaXl1dGp1d3hlamxkamdmZWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MDcyMzcsImV4cCI6MjA3MTE4MzIzN30.jGKpVh2iRjKv-eScelLUOKu3bUEUhxxwSVes7y-ffGg';
-const { createClient } = supabase;
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
-
 // Cargar todos los proyectos cuando la página esté lista
 document.addEventListener('DOMContentLoaded', function() {
     loadAllProjects();
@@ -32,7 +26,7 @@ async function loadAllProjects() {
 
     portfolioGrid.innerHTML = ''; 
 
-    // Crea el HTML para cada tarjeta de proyecto (igual que en la página principal)
+    // Crea el HTML para cada tarjeta de proyecto
     proyectos.forEach(project => {
         const projectCard = document.createElement('div');
         projectCard.classList.add('project');

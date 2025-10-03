@@ -1,8 +1,3 @@
-const SUPABASE_URL = 'https://sfiyutjuwxejldjgfehw.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmaXl1dGp1d3hlamxkamdmZWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MDcyMzcsImV4cCI6MjA3MTE4MzIzN30.jGKpVh2iRjKv-eScelLUOKu3bUEUhxxwSVes7y-ffGg';
-const { createClient } = supabase;
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
-
 document.addEventListener('DOMContentLoaded', function() {
     loadProjectDetails();
 });
@@ -45,7 +40,6 @@ async function loadProjectDetails() {
     // --- Rellenar la sección de resumen ---
     const summaryContainer = document.getElementById('project-summary-content');
     if (project.funcionalidades && typeof project.funcionalidades === 'string') {
-        // Se asegura de que el contenedor esté vacío y luego añade el resumen
         summaryContainer.innerHTML = `<p>${project.funcionalidades.replace(/\n/g, '<br>')}</p>`;
     }
 }
