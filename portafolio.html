@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio Completo - Altair</title>
-    
+    <title>Portafolio — Altair</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/portafolio.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
@@ -37,7 +38,7 @@
                 <div class="logo"><a href="index.html"><img src="imagenes/altair_logo3.png" alt="Altair Logo" title="Altair"></a></div>
                 <nav class="main-nav-desktop">
                     <ul>
-                        <li><a href="index.html#portafolio">Portafolio</a></li>
+                        <li><a href="index.html#portafolio" class="active">Portafolio</a></li>
                         <li><a href="index.html#servicios">Servicios</a></li>
                         <li><a href="index.html#nosotros">Sobre Nosotros</a></li>
                         <li><a href="index.html#blog">Blog</a></li>
@@ -52,14 +53,54 @@
             </div>
         </header>
 
-        <main class="portfolio-full-page" style="padding: 4rem 0;">
-            <div class="container">
-                <h1>Nuestro Portafolio</h1>
-                <p>Explora todos los proyectos que hemos desarrollado.</p>
-                
-                <div id="full-portfolio-grid" class="projects-grid" style="margin-top: 2rem;">
+        <main>
+            <!-- Hero de sección -->
+            <section class="portfolio-hero">
+                <div class="container">
+                    <div class="portfolio-hero__eyebrow">
+                        <span class="mono-tag">ALTAIR / PORTAFOLIO</span>
+                        <span class="hero-count mono-tag" id="project-count">— proyectos</span>
                     </div>
-            </div>
+                    <h1 class="portfolio-hero__title">
+                        Trabajo<br><em>que habla</em><br>por sí solo.
+                    </h1>
+                    <p class="portfolio-hero__sub">Cada proyecto es una solución real para un problema real. Diseño con intención, código con precisión.</p>
+                </div>
+                <div class="portfolio-hero__line"></div>
+            </section>
+
+            <!-- Grid de proyectos -->
+            <section class="portfolio-grid-section">
+                <div class="container">
+                    <div id="full-portfolio-grid" class="portfolio-masonry">
+                        <!-- Skeleton loaders -->
+                        <div class="project-card skeleton"></div>
+                        <div class="project-card skeleton"></div>
+                        <div class="project-card skeleton"></div>
+                        <div class="project-card skeleton"></div>
+                        <div class="project-card skeleton"></div>
+                        <div class="project-card skeleton"></div>
+                    </div>
+
+                    <div id="empty-state" class="empty-state" style="display:none;">
+                        <span class="empty-state__icon">[ ]</span>
+                        <p>No hay proyectos disponibles aún.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA de contacto -->
+            <section class="portfolio-cta-section">
+                <div class="container">
+                    <div class="portfolio-cta-box">
+                        <div class="portfolio-cta-box__text">
+                            <span class="mono-tag">¿SIGUIENTE PROYECTO?</span>
+                            <h2>Construyamos algo juntos.</h2>
+                        </div>
+                        <a href="index.html#contacto" class="button primary">Iniciar Conversación</a>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <footer>
@@ -80,12 +121,14 @@
         </footer>
     </div>
 
+    <a href="#" id="back-to-top" class="back-to-top" title="Volver Arriba">&uarr;</a>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/scripts.js"></script>
     <script src="js/portafolio.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-      AOS.init();
+      AOS.init({ once: true, duration: 500 });
     </script>
 </body>
 </html>
