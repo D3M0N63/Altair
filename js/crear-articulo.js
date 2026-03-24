@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const contenido = document.getElementById('contenido').value;
         const imageFile = document.getElementById('imagen').files[0];
 
+        feedbackMessage.className = 'adm-feedback';
         feedbackMessage.textContent = 'Guardando artículo, por favor espera...';
         
         // 1. Subir la imagen a Supabase Storage
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (uploadError) {
             console.error('Error subiendo imagen:', uploadError);
+            feedbackMessage.className = 'adm-feedback error';
             feedbackMessage.textContent = 'Error al subir la imagen.';
             return;
         }
@@ -59,8 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (insertError) {
             console.error('Error guardando artículo:', insertError);
+            feedbackMessage.className = 'adm-feedback error';
             feedbackMessage.textContent = 'Error al guardar el artículo en la base de datos.';
         } else {
+            feedbackMessage.className = 'adm-feedback success';
             feedbackMessage.textContent = '¡Artículo guardado con éxito! Redirigiendo...';
             setTimeout(() => {
                 window.location.href = '/admin/index.html';

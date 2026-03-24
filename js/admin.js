@@ -4,123 +4,154 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const { createClient } = supabase;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// --- FUNCIÓN DE GUARDIA: Protege la página ---
+// --- Guardia de autenticación ---
 async function checkAuth() {
     const { data: { user } } = await supabaseClient.auth.getUser();
-    if (!user) {
-        window.location.href = '/login.html';
-    }
+    if (!user) window.location.href = '/login.html';
     return user;
 }
 
-// --- FUNCIÓN PARA CERRAR SESIÓN ---
+// --- Cerrar sesión ---
 async function logout() {
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) {
-        console.error('Error al cerrar sesión', error);
-    } else {
-        window.location.href = '/login.html';
-    }
+    await supabaseClient.auth.signOut();
+    window.location.href = '/login.html';
 }
 
-// --- FUNCIONES PARA PROYECTOS ---
+// --- Mostrar proyectos ---
 async function displayProjects() {
-    const list = document.getElementById('proyectos-list');
-    
-    // CORREGIDO: Se elimina la parte mal formada del order
+    const tbody = document.getElementById('proyectos-tbody');
+    if (!tbody) return;
+
     const { data: proyectos, error } = await supabaseClient
         .from('proyectos')
         .select('*')
         .order('created_at', { ascending: false });
 
+    const statEl = document.getElementById('stat-proyectos');
+
     if (error || !proyectos) {
-        list.innerHTML = '<li>Error al cargar proyectos.</li>';
+        tbody.innerHTML = `<tr><td colspan="3"><div class="adm-empty"><p>Error al cargar proyectos.</p></div></td></tr>`;
         return;
     }
-    list.innerHTML = proyectos.map(p => `
-        <li>
-            ${p.titulo} 
-            <div>
-                <a href="editar-proyecto.html?id=${p.id}">Editar</a> | 
-                <a href="#" class="delete-project-btn" data-id="${p.id}">Borrar</a>
-            </div>
-        </li>
+
+    if (statEl) statEl.textContent = proyectos.length;
+
+    if (proyectos.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3"><div class="adm-empty"><p>No hay proyectos. <a href="crear-proyecto.html">Añadir uno →</a></p></div></td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = proyectos.map(p => `
+        <tr>
+            <td>
+                ${p.imagen_url
+                    ? `<img src="${p.imagen_url}" class="adm-table__thumb" alt="">`
+                    : `<div class="adm-table__thumb" style="background:var(--adm-surface);"></div>`
+                }
+            </td>
+            <td>
+                <div class="adm-table__name">${p.titulo}</div>
+                <div class="adm-table__meta">${new Date(p.created_at).toLocaleDateString('es-PY', { day:'2-digit', month:'short', year:'numeric' })}</div>
+            </td>
+            <td>
+                <div class="adm-table__actions">
+                    <a href="editar-proyecto.html?id=${p.id}" class="btn btn-ghost">
+                        <i class="fas fa-pencil-alt"></i> Editar
+                    </a>
+                    <button class="btn btn-danger delete-project-btn" data-id="${p.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </td>
+        </tr>
     `).join('');
 }
 
-async function deleteProject(projectId) {
-    const { error } = await supabaseClient.from('proyectos').delete().eq('id', projectId);
-    if (error) {
-        console.error('Error al eliminar el proyecto:', error);
-        alert('No se pudo eliminar el proyecto.');
-    } else {
-        alert('Proyecto eliminado con éxito.');
-        displayProjects(); // Recargamos la lista para mostrar el cambio
-    }
-}
-
-// --- FUNCIONES PARA ARTÍCULOS ---
+// --- Mostrar artículos ---
 async function displayArticles() {
-    const list = document.getElementById('articulos-list');
+    const tbody = document.getElementById('articulos-tbody');
+    if (!tbody) return;
 
-    // CORREGIDO: Se elimina la parte mal formada del order
     const { data: articulos, error } = await supabaseClient
         .from('articulos')
         .select('*')
         .order('created_at', { ascending: false });
 
+    const statEl = document.getElementById('stat-articulos');
+
     if (error || !articulos) {
-        list.innerHTML = '<li>Error al cargar artículos.</li>';
+        tbody.innerHTML = `<tr><td colspan="2"><div class="adm-empty"><p>Error al cargar artículos.</p></div></td></tr>`;
         return;
     }
-    list.innerHTML = articulos.map(a => `
-        <li>
-            ${a.titulo} 
-            <div>
-                <a href="editar-articulo.html?id=${a.id}">Editar</a> | 
-                <a href="#" class="delete-article-btn" data-id="${a.id}">Borrar</a>
-            </div>
-        </li>
+
+    if (statEl) statEl.textContent = articulos.length;
+
+    if (articulos.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="2"><div class="adm-empty"><p>No hay artículos. <a href="crear-articulo.html">Añadir uno →</a></p></div></td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = articulos.map(a => `
+        <tr>
+            <td>
+                <div class="adm-table__name">${a.titulo}</div>
+                <div class="adm-table__meta">${new Date(a.created_at).toLocaleDateString('es-PY', { day:'2-digit', month:'short', year:'numeric' })}</div>
+            </td>
+            <td>
+                <div class="adm-table__actions">
+                    <button class="btn btn-danger delete-article-btn" data-id="${a.id}">
+                        <i class="fas fa-trash"></i> Borrar
+                    </button>
+                </div>
+            </td>
+        </tr>
     `).join('');
 }
 
-async function deleteArticle(articleId) {
-    const { error } = await supabaseClient.from('articulos').delete().eq('id', articleId);
-    if (error) {
-        console.error('Error al eliminar el artículo:', error);
-        alert('No se pudo eliminar el artículo.');
-    } else {
-        alert('Artículo eliminado con éxito.');
-        displayArticles(); // Recargamos la lista para mostrar el cambio
-    }
+// --- Eliminar proyecto ---
+async function deleteProject(id) {
+    const { error } = await supabaseClient.from('proyectos').delete().eq('id', id);
+    if (error) { alert('No se pudo eliminar el proyecto.'); return; }
+    displayProjects();
 }
 
-// --- CÓDIGO PRINCIPAL QUE SE EJECUTA AL CARGAR LA PÁGINA ---
+// --- Eliminar artículo ---
+async function deleteArticle(id) {
+    const { error } = await supabaseClient.from('articulos').delete().eq('id', id);
+    if (error) { alert('No se pudo eliminar el artículo.'); return; }
+    displayArticles();
+}
+
+// --- Init ---
 document.addEventListener('DOMContentLoaded', async () => {
     const user = await checkAuth();
-    if (user) {
-        document.getElementById('user-email').textContent = user.email;
-        document.getElementById('logout-button').addEventListener('click', logout);
-        
-        displayProjects();
-        displayArticles();
+    if (!user) return;
 
-        document.body.addEventListener('click', async (e) => {
-            if (e.target && e.target.classList.contains('delete-project-btn')) {
-                e.preventDefault();
-                const idToDelete = e.target.dataset.id;
-                if (confirm('¿Estás seguro de que quieres eliminar este proyecto?')) {
-                    await deleteProject(idToDelete);
-                }
-            }
+    const emailEl = document.getElementById('user-email');
+    if (emailEl) emailEl.textContent = user.email;
 
-            if (e.target && e.target.classList.contains('delete-article-btn')) {
-                e.preventDefault();
-                const idToDelete = e.target.dataset.id;
-                if (confirm('¿Estás seguro de que quieres eliminar este artículo?')) {
-                    await deleteArticle(idToDelete);
-                }
+    const logoutBtn = document.getElementById('logout-button');
+    if (logoutBtn) logoutBtn.addEventListener('click', logout);
+
+    displayProjects();
+    displayArticles();
+
+    document.body.addEventListener('click', async (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+
+        if (btn.classList.contains('delete-project-btn')) {
+            e.preventDefault();
+            if (confirm('¿Eliminar este proyecto? Esta acción no se puede deshacer.')) {
+                await deleteProject(btn.dataset.id);
             }
-        });
-    }
+        }
+
+        if (btn.classList.contains('delete-article-btn')) {
+            e.preventDefault();
+            if (confirm('¿Eliminar este artículo? Esta acción no se puede deshacer.')) {
+                await deleteArticle(btn.dataset.id);
+            }
+        }
+    });
 });

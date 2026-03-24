@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const proyecto_url = document.getElementById('proyecto_url').value;
         const imageFile = document.getElementById('imagen').files[0];
 
+        feedbackMessage.className = 'adm-feedback';
         feedbackMessage.textContent = 'Guardando, por favor espera...';
         
         // 1. Subir la imagen
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (uploadError) {
             console.error('Error subiendo imagen:', uploadError);
+            feedbackMessage.className = 'adm-feedback error';
             feedbackMessage.textContent = 'Error al subir la imagen.';
             return;
         }
@@ -64,8 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (insertError) {
             console.error('Error guardando proyecto:', insertError);
+            feedbackMessage.className = 'adm-feedback error';
             feedbackMessage.textContent = 'Error al guardar el proyecto en la base de datos.';
         } else {
+            feedbackMessage.className = 'adm-feedback success';
             feedbackMessage.textContent = '¡Proyecto guardado con éxito! Redirigiendo...';
             setTimeout(() => {
                 window.location.href = '/admin/index.html';

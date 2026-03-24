@@ -3,49 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración</title>
+    <title>Panel de Control — Altair</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../css/admin.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="../favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon_io/favicon-16x16.png">
-
-    <link rel="stylesheet" href="../css/styles.css"> <style>
-        body { background-color: #f4f7f6; }
-        .admin-panel { max-width: 1200px; margin: 2rem auto; padding: 2rem; }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ddd; padding-bottom: 1rem; }
-        .content-section { margin-top: 2rem; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .content-list { list-style: none; padding: 0; }
-        .content-list li { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #eee; }
-    </style>
-     
+</head>
 <body>
 
-    <div class="admin-panel">
-        <div class="admin-header">
-            <div>
-                <h1>Panel de Administración</h1>
-                <p>Bienvenido, <span id="user-email"></span></p>
+<div class="adm-layout">
+
+    <!-- Sidebar -->
+    <aside class="adm-sidebar">
+        <div class="adm-sidebar__logo">
+            <img src="../imagenes/altair_logo3.png" alt="Altair">
+            <span class="adm-sidebar__badge">Admin</span>
+        </div>
+        <nav class="adm-sidebar__nav">
+            <a href="index.html" class="active">
+                <span class="nav-icon"><i class="fas fa-th-large"></i></span>
+                Dashboard
+            </a>
+            <a href="crear-proyecto.html">
+                <span class="nav-icon"><i class="fas fa-plus"></i></span>
+                Nuevo Proyecto
+            </a>
+            <a href="crear-articulo.html">
+                <span class="nav-icon"><i class="fas fa-file-alt"></i></span>
+                Nuevo Artículo
+            </a>
+            <a href="../portafolio.html" target="_blank">
+                <span class="nav-icon"><i class="fas fa-external-link-alt"></i></span>
+                Ver Portafolio
+            </a>
+            <a href="../index.html" target="_blank">
+                <span class="nav-icon"><i class="fas fa-globe"></i></span>
+                Ver Sitio Web
+            </a>
+        </nav>
+        <div class="adm-sidebar__footer">
+            <div class="adm-sidebar__user">
+                Sesión: <span id="user-email">—</span>
             </div>
-            <button id="logout-button" class="button secondary">Cerrar Sesión</button>
+            <button id="logout-button" class="btn btn-logout" style="width:100%;justify-content:center;">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
+        </div>
+    </aside>
+
+    <!-- Topbar -->
+    <header class="adm-topbar">
+        <span class="adm-topbar__title">
+            <strong>ALTAIR</strong> / PANEL DE CONTROL
+        </span>
+        <div class="adm-topbar__actions">
+            <a href="crear-proyecto.html" class="btn btn-ghost">
+                <i class="fas fa-plus"></i> Proyecto
+            </a>
+            <a href="crear-articulo.html" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Artículo
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="adm-main">
+
+        <!-- Stats -->
+        <div class="adm-stats">
+            <div class="adm-stat">
+                <div class="adm-stat__label">Proyectos</div>
+                <div class="adm-stat__value accent" id="stat-proyectos">—</div>
+            </div>
+            <div class="adm-stat">
+                <div class="adm-stat__label">Artículos</div>
+                <div class="adm-stat__value accent" id="stat-articulos">—</div>
+            </div>
+            <div class="adm-stat">
+                <div class="adm-stat__label">Estado</div>
+                <div class="adm-stat__value" style="font-size:1rem;display:flex;align-items:center;gap:.5rem;padding-top:.4rem;">
+                    <span style="width:10px;height:10px;background:#22c55e;border-radius:50%;display:inline-block;box-shadow:0 0 0 4px rgba(34,197,94,.15);"></span>
+                    Online
+                </div>
+            </div>
         </div>
 
-        <div class="content-section">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2>Proyectos del Portafolio</h2>
-                <a href="crear-proyecto.html" class="button primary">Añadir Proyecto</a>
+        <!-- Proyectos -->
+        <div class="adm-panel">
+            <div class="adm-panel__header">
+                <span class="adm-panel__title">Proyectos del Portafolio</span>
+                <a href="crear-proyecto.html" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Añadir
+                </a>
             </div>
-            <ul id="proyectos-list" class="content-list"><li>Cargando...</li></ul>
+            <div id="proyectos-list">
+                <table class="adm-table">
+                    <thead>
+                        <tr>
+                            <th style="width:60px;">IMG</th>
+                            <th>Título</th>
+                            <th style="width:180px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="proyectos-tbody">
+                        <tr><td colspan="3"><div class="adm-empty"><p>Cargando proyectos...</p></div></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="content-section">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2>Artículos del Blog</h2>
-                <a href="crear-articulo.html" class="button primary">Añadir Artículo</a>
+        <!-- Artículos -->
+        <div class="adm-panel">
+            <div class="adm-panel__header">
+                <span class="adm-panel__title">Artículos del Blog</span>
+                <a href="crear-articulo.html" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Añadir
+                </a>
             </div>
-            <ul id="articulos-list" class="content-list"><li>Cargando...</li></ul>
+            <div id="articulos-list">
+                <table class="adm-table">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th style="width:180px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="articulos-tbody">
+                        <tr><td colspan="2"><div class="adm-empty"><p>Cargando artículos...</p></div></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/admin.js"></script> </body>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/admin.js"></script>
+</body>
 </html>

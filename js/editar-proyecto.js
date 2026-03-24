@@ -49,6 +49,7 @@ async function loadProjectData() {
 // --- Manejar la actualización del formulario ---
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    feedbackMessage.className = 'adm-feedback';
     feedbackMessage.textContent = 'Actualizando, por favor espera...';
 
     const imageFile = document.getElementById('imagen').files[0];
@@ -60,6 +61,7 @@ form.addEventListener('submit', async (e) => {
         const { error: uploadError } = await supabaseClient.storage.from('imagenes-portafolio').upload(fileName, imageFile);
         if (uploadError) {
             console.error('Error subiendo nueva imagen:', uploadError);
+            feedbackMessage.className = 'adm-feedback error';
             feedbackMessage.textContent = 'Error al subir la nueva imagen.';
             return;
         }
@@ -84,8 +86,10 @@ form.addEventListener('submit', async (e) => {
 
     if (updateError) {
         console.error('Error actualizando proyecto:', updateError);
+        feedbackMessage.className = 'adm-feedback error';
         feedbackMessage.textContent = 'Error al actualizar el proyecto.';
     } else {
+        feedbackMessage.className = 'adm-feedback success';
         feedbackMessage.textContent = '¡Proyecto actualizado con éxito! Redirigiendo...';
         setTimeout(() => { window.location.href = '/admin/index.html'; }, 2000);
     }
