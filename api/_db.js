@@ -4,6 +4,6 @@ const { neon, neonConfig } = require('@neondatabase/serverless');
 // Requerido para Vercel serverless functions (Node.js runtime)
 neonConfig.fetchConnectionCache = true;
 
-const sql = neon(process.env.NEON_DATABASE_URL);
+const sql = neon(process.env.POSTGRES_URL || process.env.NEON_DATABASE_URL);
 
 module.exports = { sql };
