@@ -1,168 +1,113 @@
 // ===============================================
-// == 1. SUPABASE CONFIGURATION                 ==
+// == SCRIPTS.JS — sin dependencia de Supabase ==
 // ===============================================
-const SUPABASE_URL = 'https://sfiyutjuwxejldjgfehw.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmaXl1dGp1d3hlamxkamdmZWh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MDcyMzcsImV4cCI6MjA3MTE4MzIzN30.jGKpVh2iRjKv-eScelLUOKu3bUEUhxxwSVes7y-ffGg';
 
-const { createClient } = supabase;
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-
-// ===============================================
-// == 2. MAIN SCRIPT EXECUTION                  ==
-// ===============================================
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- Lógica del Menú Lateral Móvil ---
-    const menuToggle = document.getElementById('menu-toggle');
-    const sideMenu = document.getElementById('side-menu');
-    const mainContent = document.getElementById('main-content');
-    const overlay = document.getElementById('overlay');
-    const closeBtn = document.querySelector('.close-btn');
-    const menuLinks = sideMenu.querySelectorAll('a');
+  // --- Menú lateral móvil ---
+  const menuToggle = document.getElementById('menu-toggle');
+  const sideMenu   = document.getElementById('side-menu');
+  const mainContent = document.getElementById('main-content');
+  const overlay    = document.getElementById('overlay');
+  const closeBtn   = document.querySelector('.close-btn');
 
-    function openMenu() {
-        if (sideMenu && mainContent && overlay && menuToggle) {
-            sideMenu.classList.add('open');
-            mainContent.classList.add('shifted');
-            overlay.classList.add('visible');
-            menuToggle.classList.add('is-active');
-        }
-    }
+  function openMenu() {
+    sideMenu?.classList.add('open');
+    mainContent?.classList.add('shifted');
+    overlay?.classList.add('visible');
+    menuToggle?.classList.add('is-active');
+  }
 
-    function closeMenu() {
-        if (sideMenu && mainContent && overlay && menuToggle) {
-            sideMenu.classList.remove('open');
-            mainContent.classList.remove('shifted');
-            overlay.classList.remove('visible');
-            menuToggle.classList.remove('is-active');
-        }
-    }
+  function closeMenu() {
+    sideMenu?.classList.remove('open');
+    mainContent?.classList.remove('shifted');
+    overlay?.classList.remove('visible');
+    menuToggle?.classList.remove('is-active');
+  }
 
-    if (menuToggle) {
-        menuToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (sideMenu.classList.contains('open')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-    }
+  menuToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sideMenu?.classList.contains('open') ? closeMenu() : openMenu();
+  });
 
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            closeMenu();
-        });
-    }
+  closeBtn?.addEventListener('click', (e) => { e.preventDefault(); closeMenu(); });
+  overlay?.addEventListener('click', closeMenu);
 
-    if (overlay) {
-        overlay.addEventListener('click', function() {
-            closeMenu();
-        });
-    }
-    
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            closeMenu();
-        });
+  sideMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // --- Botón volver arriba ---
+  const backToTopBtn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', () => {
+    if (!backToTopBtn) return;
+    backToTopBtn.classList.toggle('show', window.scrollY > 300);
+  });
+
+  // --- Resaltar nav al hacer scroll ---
+  const sections         = document.querySelectorAll('section[id]');
+  const navLinksDesktop  = document.querySelectorAll('.main-nav-desktop a');
+  const navLinksMobile   = document.querySelectorAll('.side-nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.id;
+      [...navLinksDesktop, ...navLinksMobile].forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+      });
     });
+  }, { threshold: 0.5 });
 
+  sections.forEach(s => observer.observe(s));
 
-    // --- Lógica del Botón de Volver Arriba ---
-    const backToTopBtn = document.getElementById('back-to-top');
+  // --- Cargar proyectos en la página de inicio ---
+  const portfolioGrid = document.getElementById('portfolio-grid');
+  if (portfolioGrid) loadHomepageProjects(portfolioGrid);
 
-    function scrollFunction() {
-        if (backToTopBtn) {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
-            }
-        }
+  // --- Cargar artículos en la sección blog del inicio ---
+  const articlesPreview = document.querySelector('.articles-grid');
+  if (articlesPreview) loadHomepageArticles(articlesPreview);
+});
+
+async function loadHomepageProjects(grid) {
+  try {
+    const proyectos = await fetch('/api/proyectos').then(r => r.json());
+    if (!proyectos.length) {
+      grid.innerHTML = '<p>Actualmente no hay proyectos para mostrar.</p>';
+      return;
     }
-
-    window.onscroll = function() {
-        scrollFunction();
-    };
-
-
-    // --- Lógica para Resaltar el Enlace del Menú al Hacer Scroll ---
-    const sections = document.querySelectorAll("section[id]");
-    const navLinksDesktop = document.querySelectorAll(".main-nav-desktop a");
-    const navLinksMobile = document.querySelectorAll(".side-nav a");
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute("id");
-                
-                navLinksDesktop.forEach(link => {
-                    link.classList.remove("active");
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add("active");
-                    }
-                });
-
-                navLinksMobile.forEach(link => {
-                    link.classList.remove("active");
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add("active");
-                    }
-                });
-            }
-        });
-    }, {
-        threshold: 0.5
+    grid.innerHTML = '';
+    proyectos.slice(0, 6).forEach(project => {
+      const card = document.createElement('div');
+      card.className = 'project';
+      card.setAttribute('data-aos', 'fade-up');
+      card.innerHTML = `
+        <img loading="lazy" src="${project.imagen_url}" alt="Imagen del proyecto ${project.titulo}">
+        <h3>${project.titulo}</h3>
+        <p>${project.descripcion || ''}</p>
+        <a href="proyecto-detalle.html?id=${project.id}">Ver Detalles</a>`;
+      grid.appendChild(card);
     });
+  } catch {
+    grid.innerHTML = '<p>No se pudieron cargar los proyectos.</p>';
+  }
+}
 
-    sections.forEach(section => {
-        observer.observe(section);
+async function loadHomepageArticles(grid) {
+  try {
+    const articulos = await fetch('/api/articulos').then(r => r.json());
+    grid.innerHTML = '';
+    articulos.slice(0, 3).forEach(article => {
+      const card = document.createElement('article');
+      card.className = 'article';
+      card.innerHTML = `
+        <img src="${article.imagen_portada_url}" alt="" loading="lazy">
+        <h3>${article.titulo}</h3>
+        <p class="meta">${new Date(article.created_at).toLocaleDateString('es-PY')}</p>
+        <p>${article.resumen}</p>
+        <a href="articulo-detalle.html?id=${article.id}">Leer Más</a>`;
+      grid.appendChild(card);
     });
-
-    
-    // --- Lógica para Cargar Proyectos (SOLO PARA LA PÁGINA DE INICIO) ---
-    async function loadHomepageProjects() {
-        const portfolioGrid = document.getElementById('portfolio-grid');
-        
-        // --- ESTA ES LA CORRECCIÓN ---
-        // Si el elemento 'portfolio-grid' no existe en la página actual, no hagas nada.
-        if (!portfolioGrid) {
-            return;
-        }
-
-        const { data: proyectos, error } = await supabaseClient
-            .from('proyectos')
-            .select('*');
-
-        if (error) {
-            console.error('Error al cargar proyectos:', error);
-            portfolioGrid.innerHTML = '<p>No se pudieron cargar los proyectos.</p>';
-            return;
-        }
-
-        if (proyectos.length === 0) {
-            portfolioGrid.innerHTML = '<p>Actualmente no hay proyectos para mostrar.</p>';
-            return;
-        }
-
-        portfolioGrid.innerHTML = ''; 
-
-        proyectos.forEach(project => {
-            const projectCard = document.createElement('div');
-            projectCard.classList.add('project');
-            projectCard.setAttribute('data-aos', 'fade-up');
-            projectCard.innerHTML = `
-              <img loading="lazy" src="${project.imagen_url}" alt="Imagen del proyecto ${project.titulo}">
-              <h3>${project.titulo}</h3>
-              <p>${project.descripcion}</p>
-              <a href="proyecto-detalle.html?id=${project.id}">Ver Detalles</a>`;
-            portfolioGrid.appendChild(projectCard);
-        });
-    }
-
-    // Llamamos a la función para cargar los proyectos de la página de inicio
-    loadHomepageProjects();
-
-}); // --- FIN del DOMContentLoaded ---
+  } catch { /* silencioso */ }
+}
